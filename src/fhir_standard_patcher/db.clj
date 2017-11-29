@@ -1,4 +1,4 @@
-(ns hs-test-problem.db
+(ns fhir-standard-patcher.db
   (:require [clojure.java.jdbc :as j]))
 
 (def db

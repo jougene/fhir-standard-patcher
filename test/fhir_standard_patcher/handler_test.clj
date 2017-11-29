@@ -1,4 +1,4 @@
-(ns hs-test-problem.handler-test
+(ns fhir-standard-patcher.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
             [hs-test-problem.handler :refer :all]))
