@@ -1,3 +1,3 @@
-https://github.com/FHIR/fhir.js - client example
-http://hl7.org/fhir/downloads.html - here examples of resourse in JSON
-http://hl7.org/fhir/patient.html - fhir patient resourse
+- https://github.com/FHIR/fhir.js - client example
+- http://hl7.org/fhir/downloads.html - here examples of resourse in JSON
+- http://hl7.org/fhir/patient.html - fhir patient resourse
