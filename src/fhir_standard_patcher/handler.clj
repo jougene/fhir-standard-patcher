@@ -9,3 +9,5 @@
 
 (def app
   (wrap-defaults app-routes site-defaults))
+
+(+ 2 8)
