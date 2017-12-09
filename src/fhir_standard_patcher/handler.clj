@@ -1,15 +1,16 @@
 (ns fhir-standard-patcher.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [rum.core :as rum]))
+            [rum.core :as rum]
+            [ring.adapter.jetty :as jetty]
+            [fhir-standard-patcher.middleware :refer :all]))
 
 (def test-request
   {:type "Patient"
    :name "Bob"
    :gendter "male"
    :info {} })
-
+;; ----components-----
 (rum/defc form []
   [:form {:method "post" :action "/patient"}
    [:input {:type "test"
@@ -25,16 +26,22 @@
    [:body
     (content)
     ]])
+;; ------------------
+;; -----handlers-----
+(defn add-handler [request]
+  {:status 200
+   :body (str "<!DOCTYPE html>\n" (->> form
+                                       (layout)
+                                       (rum/render-static-markup)))}) 
+;; ------------------ 
 
 (defroutes app-routes
-  (GET "/patient" [] 
-     {:status 200
-      :headers { "Content-Type" "text/html; charset=utf-8" }
-      :body (str "<!DOCTYPE html>\n" (rum/render-static-markup (layout form)))})
-  (POST "/patient" [] "Hello World")
+  (GET "/patient" [] (wrap-text-html add-handler))                   ;; add new patient route form 
+  (POST "/patient" [] "Saving new patient...")      ;; save new patient 
+  (GET "/patient/:id" [] "Specific patient")        ;; show specific patient by id
+  (GET "/patients" [] "Patients list")              ;; show patients list 
   (route/not-found "Not Found"))
 
-(def app
-  (wrap-defaults app-routes site-defaults))
-  
-(str (rum/render-static-markup (layout form)))
+(defn start []
+  (jetty/run-jetty #'app-routes {:port 8080 :join? false}))
+
