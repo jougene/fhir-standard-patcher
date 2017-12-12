@@ -29,7 +29,8 @@
 (j/query db-conn create-resources-sql)
 (j/query db-conn (-> (select :*)
                      (from :resources)
-                     sql/format)
+                     sql/format))
+
 (j/query db-conn
          (sql/format (drop-table :resources)))
          
