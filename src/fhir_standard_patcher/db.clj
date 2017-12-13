@@ -7,9 +7,10 @@
     [honeysql-postgres.format :refer :all]
     [honeysql-postgres.helpers :refer :all]
     ;;
-    ))
+    )
+  (:refer-clojure :exclude [update partition-by]))
 
-(def db-conn
+(defonce db-conn
   {:classname   "org.postgresql.Driver"
    :subprotocol "postgresql"
    :subname     "//localhost:5432/fhir?sslmode=disable"
@@ -18,20 +19,13 @@
    :sslmode     "require"
    })
 
-(def create-resources-sql
-  (-> (create-table :resources)
-      (with-columns
-        [[:id :integer (sql/call :primary-key)]
-         [:type (sql/call :varchar 32) (sql/call :not nil)]
-         [:data :text]])
-      sql/format))
+(comment 
+  (j/query db-conn create-resources-sql)
 
-(j/query db-conn create-resources-sql)
+  (j/query db-conn (-> (select :*)
+                       (from :resources)
+                       sql/format))
 
-(j/query db-conn (-> (select :*)
-                     (from :resources)
-                     sql/format))
-
-(j/query db-conn
-        (sql/format (drop-table :resources)))
+  (j/query db-conn
+          (sql/format (drop-table :resources))))
          
