@@ -1,6 +1,4 @@
-# hs-test-problem
-
-FIXME
+## FHIR patient resource client
 
 ## Prerequisites
 

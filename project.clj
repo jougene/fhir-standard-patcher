@@ -8,6 +8,7 @@
                  [ring/ring-json "0.4.0"]
                  [compojure "1.5.1"]
                  [rum "0.10.8" :only [server-render]]
+                 [hiccup "1.0.5"]
                  ;; db deps
                  [org.clojure/java.jdbc "0.6.1"]
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]
