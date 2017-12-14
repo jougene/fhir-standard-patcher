@@ -9,6 +9,7 @@
 
   (:refer-clojure :exclude [update partition-by]))
 
+;; -----patients----------
 (def patients [
                 {:id 1
                  :type "Patient"
@@ -26,8 +27,12 @@
                          (returning :*)
                          sql/format)]
     (j/query db/db-conn insert-query)))
-
-(def f (clojure.
+;; ------------------------
+(def fhir-versions
+  [:id 1
+   :version "3.0.0"
+   :schema ""])
 (comment 
   (seed-patients patients)
-  (slurp "../examples/patient-example-a.json"))
+  (seed-fhir-versions fhir-versions)
+  (slurp "examples/patient-example-a.json"))
