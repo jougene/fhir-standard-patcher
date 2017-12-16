@@ -11,3 +11,5 @@ pom.xml
 *.swm
 .nrepl-port
 .lein-repl-history
+.vagrant
+.idea
