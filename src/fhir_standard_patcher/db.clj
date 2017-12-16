@@ -10,18 +10,16 @@
     )
   (:refer-clojure :exclude [update partition-by]))
 
-(defonce db-conn
+(def db-conn
   {:classname   "org.postgresql.Driver"
    :subprotocol "postgresql"
-   :subname     "//localhost:5432/fhir?sslmode=disable"
+   :subname     "//localhost:5432/fhir"
    :user        "fhir"
    :password    "12345"
-   :sslmode     "require"
+   :sslmode     "disable"
    })
 
 (comment 
-  (j/query db-conn create-resources-sql)
-
   (j/query db-conn (-> (select :*)
                        (from :resources)
                        sql/format))
